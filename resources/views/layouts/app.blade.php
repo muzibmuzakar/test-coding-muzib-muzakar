@@ -18,7 +18,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-center">
-          <a href="./index.html" class="text-nowrap logo-img">
+          <a href="/" class="text-nowrap logo-img">
             <h2><strong>Logo</strong></h2>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -31,6 +31,14 @@
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Menu</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href={{ route('klub.index') }} aria-expanded="false">
@@ -51,7 +59,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href={{ route('klasemen.index') }} aria-expanded="false">
                 <span>
-                  <i class="ti ti-list-details"></i>
+                  <i class="ti ti-table"></i>
                 </span>
                 <span class="hide-menu">Klasemen</span>
               </a>

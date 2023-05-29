@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Klasemen;
 use App\Models\Klub;
+use App\Models\Pertandingan;
 use Illuminate\Http\Request;
 
 class KlasemenController extends Controller
@@ -13,6 +14,9 @@ class KlasemenController extends Controller
      */
     public function index()
     {
+
+        // $klasemens = Pertandingan::klasemen();
+
         $klasemens = Klasemen::with('klub')
         ->orderBy('point', 'desc')
         ->orderByRaw('(gm - gk) DESC')

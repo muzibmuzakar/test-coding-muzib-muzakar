@@ -48,7 +48,7 @@
                                             <div class="col">
                                                 <label class="form-label">Score 1</label>
                                                 <input type="text" class="form-control" name="inputs[0][score_home]">
-                                                @error('score_home')
+                                                @error('inputs[0][score_home]')
                                                     <div>{{ $message }}</div>
                                                 @enderror
                                             </div>

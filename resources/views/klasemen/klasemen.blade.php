@@ -1,3 +1,4 @@
+<?php use App\Models\Pertandingan; ?>
 @extends('layouts.app')
 
 @section('content')
@@ -47,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($klasemens as $key=>$klasemen)
+                                @foreach ($klasemens as $key => $klasemen)
                                 <tr>
                                     <td class="border-bottom-0">
                                         <h6 class="fw-semibold mb-0">{{ $key + 1 }}</h6>
@@ -82,6 +83,25 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{-- <table>
+                        <thead>
+                            <tr>
+                                <th>Tim</th>
+                                <th>Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($klasemens as $clubId => $poin)
+                                <tr>
+                                    <td>{{ $clubId }}</td>
+                                    <td>{{ $poin }}</td>
+                                    <td>{{ Pertandingan::calculateGoals($clubId, true) }}</td>
+                                    <td>{{ Pertandingan::calculateGoals($clubId, false) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table> --}}
                 </div>
             </div>
         </div>

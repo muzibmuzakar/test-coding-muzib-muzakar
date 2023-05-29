@@ -15,16 +15,34 @@
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <tbody>
-                            @foreach ($pertandingans as $key=>$pertandingan)
+                            @foreach ($pertandingans as $key => $pertandingan)
                                 <tr>
                                     <td class="border-bottom-0">
                                         <h6 class="fw-semibold mb-1">{{ $pertandingan->klub_home->name }}</h6>
                                     </td>
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">{{ $pertandingan->score_home }} - {{ $pertandingan->score_away }}</p>
+                                        <p class="mb-0 fw-normal">{{ $pertandingan->score_home }} -
+                                            {{ $pertandingan->score_away }}</p>
                                     </td>
                                     <td class="border-bottom-0">
                                         <h6 class="fw-semibold mb-1">{{ $pertandingan->klub_away->name }}</h6>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <div class="dropend">
+                                            <a class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ti ti-dots-vertical"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <form action="{{ route('pertandingan.destroy', $pertandingan->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="dropdown-item">Delete</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Klasemen;
+use App\Models\Klub;
 use App\Models\Pertandingan;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class PertandinganController extends Controller
             'inputs.*.score_away' => 'required'
         ]);
 
-        foreach ($request->inputs as $key => $data){
+        foreach ($request->inputs as $key => $data) {
             Pertandingan::create($data);
 
             if ($data['score_home'] > $data['score_away']) {
@@ -99,7 +100,7 @@ class PertandinganController extends Controller
             }
         }
 
-        
+
 
         return redirect()->route('pertandingan.index');
     }
@@ -117,7 +118,7 @@ class PertandinganController extends Controller
      */
     public function edit(Pertandingan $pertandingan)
     {
-        //
+        
     }
 
     /**
@@ -125,7 +126,7 @@ class PertandinganController extends Controller
      */
     public function update(Request $request, Pertandingan $pertandingan)
     {
-        //
+
     }
 
     /**
@@ -133,6 +134,58 @@ class PertandinganController extends Controller
      */
     public function destroy(Pertandingan $pertandingan)
     {
-        //
+        $score_home = $pertandingan->score_home;
+        $score_away = $pertandingan->score_away;
+
+        $timHome = Klasemen::where('klub_id', $pertandingan->id_klub_home)->first();
+        $timAway = Klasemen::where('klub_id', $pertandingan->id_klub_away)->first();
+
+        if ($timHome && $timAway) {
+            if ($score_home > $score_away) {
+                $timHome->point -= 3;
+                $timHome->ma -= 1;
+                $timHome->me -= 1;
+                $timHome->gm -= $score_home;
+                $timHome->gk -= $score_away;
+                $timHome->save();
+
+                $timAway->ma -= 1;
+                $timAway->k -= 1;
+                $timAway->gm -= $score_away;
+                $timAway->gk -= $score_home;
+                $timAway->save();
+            } elseif ($score_home < $score_away) {
+                $timAway->point -= 3;
+                $timAway->ma -= 1;
+                $timAway->me -= 1;
+                $timAway->gm -= $score_away;
+                $timAway->gk -= $score_home;
+                $timAway->save();
+
+                $timHome->ma -= 1;
+                $timHome->k -= 1;
+                $timHome->gm -= $score_home;
+                $timHome->gk -= $score_away;
+                $timHome->save();
+            } elseif ($score_home == $score_away) {
+                $timHome->point -= 1;
+                $timHome->ma -= 1;
+                $timHome->s -= 1;
+                $timHome->gm -= $score_home;
+                $timHome->gk -= $score_away;
+                $timHome->save();
+
+                $timAway->point -= 1;
+                $timAway->ma -= 1;
+                $timAway->s -= 1;
+                $timAway->gm -= $score_away;
+                $timAway->gk -= $score_home;
+                $timAway->save();
+            }
+        }
+
+        $pertandingan->delete();
+
+        return redirect()->back();
     }
 }

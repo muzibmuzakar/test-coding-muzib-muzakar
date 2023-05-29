@@ -14,14 +14,14 @@
                                 <label class="form-label">Nama Klub</label>
                                 <input type="text" class="form-control" name="name">
                                 @error('name')
-                                    <div>{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Kota Klub</label>
                                 <input type="text" class="form-control" name="city">
                                 @error('city')
-                                    <div>{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Save</button>
